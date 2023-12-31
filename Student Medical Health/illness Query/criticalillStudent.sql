@@ -9,17 +9,12 @@ SELECT * FROM STMH;
     
 **/
 
-
-SELECT * FROM STMH;
-
-
-
 -- Querying for student with all illness 
 SELECT 
-    student_id, depressed, anxiety, panic_attack, specialist_treatment
+    student_id, gender, age, grade, depressed, anxiety, panic_attack, specialist_treatment
 FROM
     (SELECT 
-        Student_id, gender,
+        Student_id, gender, gender, age, grade,
             COUNT(CASE
                 WHEN DEPRESSION = 'YES' THEN student_id
                 ELSE NULL
@@ -38,7 +33,7 @@ FROM
             END) AS Specialist_treatment
     FROM
         STMH
-    GROUP BY student_id, gender) as gold
+    GROUP BY student_id, gender, age, grade,) as illness
 WHERE
     depressed >= 1 AND anxiety >= 1
         AND panic_attack >= 1
